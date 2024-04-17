@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 0}
   m_Name: Puzzle1
   m_EditorClassIdentifier: Assembly-CSharp::ScriptableUnit
-  Faction: 0
-  role: 0
+  Faction: 1
+  role: 1
   key: 0
-  UnitPrefab: {fileID: 0}
+  UnitPrefab: {fileID: -4433880968534771878, guid: c00aeb03d150595438b8591a0301599b, type: 3}
