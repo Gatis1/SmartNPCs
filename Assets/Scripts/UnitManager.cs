@@ -30,7 +30,7 @@ public class UnitManager : MonoBehaviour //handles spawing heroes on the map.
 
             randomSpawnTile.SetUnit(spawnedHero);
         }
-        GameManager.Instance.ChangeState(GameState.SpawnEnemies);
+        GameManager.Instance.ChangeState(GameManager.GameState.SpawnPuzzle);
     }
     //spawns a set amount of enemies from the list of enemy units.
     public void SpawnEnemies()
@@ -46,11 +46,11 @@ public class UnitManager : MonoBehaviour //handles spawing heroes on the map.
             randomSpawnTile.SetUnit(spawnedEnemy);
         }
 
-        GameManager.Instance.ChangeState(GameState.HeroesTurn);
+        // GameManager.Instance.ChangeState(GameManager.GameState.HeroesTurn); -- Prob dont need this code
     }
     //reads the list of units in per function based on which spawn function, selects units at random can get duplicates.
     private T GetUnits<T>(Faction faction) where T : BaseUnit
     {
-        return (T)_units.Where(u=>u.Faction == faction).OrderBy(o => UnityEngine.Random.value).First().UnitPrefab;
+        return (T)_units.Where(u => u.Faction == faction).OrderBy(o => UnityEngine.Random.value).First().UnitPrefab;
     }
 }

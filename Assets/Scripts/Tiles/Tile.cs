@@ -48,3 +48,4 @@ public class Tile : MonoBehaviour //handles actions done on tiles such as charac
         //    }
         //}
     }
+}

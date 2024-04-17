@@ -33,7 +33,7 @@ public class GridManager : MonoBehaviour
         }
         _camera.transform.position = new Vector3((float)width / 2 - 0.5f, (float)height / 2 - 0.5f, -10);//changes camera position to view the whole grid, designed for 16:9.
 
-        GameManager.Instance.ChangeState(GameState.SpawnHeroes);
+        GameManager.Instance.ChangeState(GameManager.GameState.SpawnNPC);
     }
 
     public Tile GetHeroSpawnTile()
