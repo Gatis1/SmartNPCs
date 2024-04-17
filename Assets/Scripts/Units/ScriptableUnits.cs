@@ -7,28 +7,24 @@ public class ScriptableUnit : ScriptableObject
 {
     public Faction Faction;
     public Role role;
-    public DMGtype type;
+    public _Key key;
     public BaseUnit UnitPrefab;
 }
 
 public enum Faction
 {
-    Hero = 0,
-    Enemy = 1
+    NPC = 0,
+    Puzzle = 1
 }
 
 public enum Role
 {
-    Warrior,
-    Rogue,
-    Mage,
-    Bandit,
-    Beast,
-    Fiend
+    NPC,
+    Puzzle
 }
 
-public enum DMGtype
+public enum _Key
 {
-    PHYS,
-    MAG
+    key1,
+    key2
 }

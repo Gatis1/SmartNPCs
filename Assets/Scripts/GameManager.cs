@@ -6,7 +6,7 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
-    public GameState GameState;
+    public GameState gameState;
 
     public static event Action<GameState> OnGameStateChange;
 
@@ -22,17 +22,17 @@ public class GameManager : MonoBehaviour
 
     public void ChangeState(GameState newState) //sets states to the game to make the map, spawn units, and turn base.
     {
-        GameState = newState;
+        gameState = newState;
         switch (newState)
         {
             case GameState.GenerateGrid:
                 GridManager.Instance.GenerateGrid();
                 break;
-            case GameState.SpawnHeroes:
-                UnitManager.Instance.SpawnHeroes();
+            case GameState.SpawnNPC:
+                UnitManager.Instance.SpawnNPC();
                 break;
-            case GameState.SpawnEnemies:
-                UnitManager.Instance.SpawnEnemies();
+            case GameState.SpawnPuzzle:
+                UnitManager.Instance.SpawnPuzzle();
                 break;
             default:
                 throw new ArgumentOutOfRangeException(nameof(newState), newState, null);

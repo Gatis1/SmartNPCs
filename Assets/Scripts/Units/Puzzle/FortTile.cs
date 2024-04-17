@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Rouge : BaseHero
+public class FortTile : BasePuzzle
 {
     // Start is called before the first frame update
     void Start()

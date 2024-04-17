@@ -10,8 +10,8 @@ public class Tile : MonoBehaviour //handles actions done on tiles such as charac
     [SerializeField] private GameObject _highlight, CharHighlight;
     [SerializeField] private bool _isWalkable;
 
-    public static int heroes = 3;
-    public static int eneimes = 6;
+    public static int heroes = 2;
+    public static int eneimes = 2;
 
     public BaseUnit OccupiedUnit;
 
@@ -30,21 +30,22 @@ public class Tile : MonoBehaviour //handles actions done on tiles such as charac
         unit.transform.position = transform.position;
         OccupiedUnit = unit;
         unit.OccupiedTile = this;
-
-        //private void MoveUnit(BaseUnit unit)
-        //{
-        //    for (int x = 0; x < unit.MV; x++)
-        //    {
-        //        for (int y = 0; y < unit.MV; y++)
-        //        {
-        //            if (_isWalkable)
-        //            {
-        //                if (path.FindPath(unitX, unitY, x, y).Count() <= unit.MV)
-        //                {
-        //                    CharHighlight.SetActive(true);
-        //                }
-        //            }
-        //        }
-        //    }
-        //}
     }
+
+    //private void MoveUnit(BaseUnit unit)
+    //{
+    //    for (int x = 0; x < unit.MV; x++)
+    //    {
+    //        for (int y = 0; y < unit.MV; y++)
+    //        {
+    //            if (_isWalkable)
+    //            {
+    //                if (path.FindPath(unitX, unitY, x, y).Count() <= unit.MV)
+    //                {
+    //                    CharHighlight.SetActive(true);
+    //                }
+    //            }
+    //        }
+    //    }
+    //}
+}
