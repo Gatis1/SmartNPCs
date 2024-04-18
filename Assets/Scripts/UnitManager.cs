@@ -12,7 +12,8 @@ public class UnitManager : MonoBehaviour //handles spawing heroes on the map.
     void Start()
     {
         Instance = this;
-        _units = Resources.LoadAll<ScriptableUnit>("Units").ToList();//reads all character units and turns it into a list.
+        _units = Resources.LoadAll<ScriptableUnit>("Units")
+            .ToList();//reads all character units and turns it into a list.
     }
     //spawn a set amount of hero units.
     public void SpawnNPC()
@@ -47,6 +48,6 @@ public class UnitManager : MonoBehaviour //handles spawing heroes on the map.
     //reads the list of units based on their faction, selects units at random can get duplicates.
     private T GetUnits<T>(Faction faction) where T : BaseUnit
     {
-        return (T)_units.Where(u => u.Faction == faction).OrderBy(o => UnityEngine.Random.value).First().UnitPrefab;
+        return (T)_units.Where(u => u.Faction == faction).OrderBy(o => Random.value).First().UnitPrefab;
     }
 }

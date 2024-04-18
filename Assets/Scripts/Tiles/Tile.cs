@@ -4,9 +4,6 @@ using UnityEngine;
 
 public class Tile : MonoBehaviour //handles actions done on tiles such as character controls.
 {
-    public string TileName;
-    [SerializeField] protected SpriteRenderer render;
-    [SerializeField] private GameObject _highlight, CharHighlight;
     [SerializeField] private bool _isWalkable;
 
     public static int NPCs = 2;
