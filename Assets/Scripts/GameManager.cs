@@ -6,7 +6,7 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
-    public GameState gameState;
+    public GameState state;
 
     public static event Action<GameState> OnGameStateChange;
 
@@ -22,8 +22,8 @@ public class GameManager : MonoBehaviour
 
     public void ChangeState(GameState newState) //sets states to the game to make the map, spawn units, and turn base.
     {
-        gameState = newState;
-        switch (newState)
+        state = newState;
+        switch(newState)
         {
             case GameState.GenerateGrid:
                 GridManager.Instance.GenerateGrid();
@@ -46,6 +46,7 @@ public class GameManager : MonoBehaviour
         GenerateGrid,
         SpawnNPC,
         SpawnPuzzle,
+        NPCactions,
         Solved,
     }
 }

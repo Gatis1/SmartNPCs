@@ -101,5 +101,5 @@ MonoBehaviour:
   render: {fileID: 0}
   _highlight: {fileID: 0}
   CharHighlight: {fileID: 0}
-  _isWalkable: 0
+  _isWalkable: 1
   OccupiedUnit: {fileID: 0}

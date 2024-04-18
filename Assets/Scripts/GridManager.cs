@@ -36,7 +36,7 @@ public class GridManager : MonoBehaviour
         GameManager.Instance.ChangeState(GameManager.GameState.SpawnNPC);
     }
 
-    public Tile GetHeroSpawnTile()
+    public Tile GetNPCSpawnTile()
     {
         int spawnAreaSize = 3; // size of the spawn area
         return _tiles.Where(t => t.Key.x < spawnAreaSize && t.Key.y < spawnAreaSize && t.Value.Walkable).OrderBy(t => UnityEngine.Random.value).First().Value;

@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,8 +9,8 @@ public class Tile : MonoBehaviour //handles actions done on tiles such as charac
     [SerializeField] private GameObject _highlight, CharHighlight;
     [SerializeField] private bool _isWalkable;
 
-    public static int heroes = 2;
-    public static int eneimes = 2;
+    public static int NPCs = 2;
+    public static int Puzzles = 2;
 
     public BaseUnit OccupiedUnit;
 

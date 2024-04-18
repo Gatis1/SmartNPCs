@@ -7,7 +7,7 @@ public class ScriptableUnit : ScriptableObject
 {
     public Faction Faction;
     public Role role;
-    public _Key key;
+    public Key key;
     public BaseUnit UnitPrefab;
 }
 
@@ -23,7 +23,7 @@ public enum Role
     Puzzle
 }
 
-public enum _Key
+public enum Key
 {
     key1,
     key2

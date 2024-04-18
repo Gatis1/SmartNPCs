@@ -8,5 +8,5 @@ public class BaseUnit : MonoBehaviour
     public Tile OccupiedTile;
     public Faction Faction;
     public Role role;
-    public _Key key;
+    public Key key;
 }
