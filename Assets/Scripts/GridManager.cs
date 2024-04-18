@@ -12,7 +12,7 @@ public class GridManager : MonoBehaviour
 
     private Dictionary<Vector2, Tile> _tiles;
 
-    void Awake()
+    void Start()
     {
         Instance = this;
     }

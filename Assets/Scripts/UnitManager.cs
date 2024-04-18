@@ -7,14 +7,12 @@ public class UnitManager : MonoBehaviour //handles spawing heroes on the map.
 {
     public static UnitManager Instance;
 
-    private List<ScriptableUnit> _NPC;
-    private List<ScriptableUnit> _NPCcopy;
+    private List<ScriptableUnit> _units;
 
-    void Awake()
+    void Start()
     {
         Instance = this;
-        _NPC = Resources.LoadAll<ScriptableUnit>("NPC").ToList();//reads all character units and turns it into a list.
-        _NPCcopy = new List<ScriptableUnit>(_NPC);
+        _units = Resources.LoadAll<ScriptableUnit>("Units").ToList();//reads all character units and turns it into a list.
     }
     //spawn a set amount of hero units.
     public void SpawnNPC()
@@ -23,11 +21,11 @@ public class UnitManager : MonoBehaviour //handles spawing heroes on the map.
 
         for (int i = 0; i < heroCount; i++)
         {
-            var heroPrefab = GetUnits<BaseNPC>(Faction.NPC);
-            var spawnedHero = Instantiate(heroPrefab);
+            var npcPrefab = GetUnits<BaseNPC>(Faction.NPC);
+            var spawnNPC= Instantiate(npcPrefab);
             var randomSpawnTile = GridManager.Instance.GetNPCSpawnTile();
 
-            randomSpawnTile.SetUnit(spawnedHero);
+            randomSpawnTile.SetUnit(spawnNPC);
         }
         GameManager.Instance.ChangeState(GameManager.GameState.SpawnPuzzle);
     }
@@ -38,22 +36,17 @@ public class UnitManager : MonoBehaviour //handles spawing heroes on the map.
 
         for (int i = 0; i < enemyCount; i++)
         {
-            var enemyPrefab = GetUnits<BasePuzzle>(Faction.Puzzle);
-            var spawnedEnemy = Instantiate(enemyPrefab);
+            var puzzlePrefab = GetUnits<BasePuzzle>(Faction.Puzzle);
+            var spawnPuzzle = Instantiate(puzzlePrefab);
             var randomSpawnTile = GridManager.Instance.GetPuzzleSpawnTile();
 
-            randomSpawnTile.SetUnit(spawnedEnemy);
+            randomSpawnTile.SetUnit(spawnPuzzle);
         }
     }
 
-    private GetUnits(Faction faction)
+    //reads the list of units based on their faction, selects units at random can get duplicates.
+    private T GetUnits<T>(Faction faction) where T : BaseUnit
     {
-        if (!_NPCcopy.Any()) // reset the copy if all units have been selected
-        {
-            _NPCcopy = new List<ScriptableUnit>(_NPC);
-        }
-        var selectedUnit = _NPCcopy.Where(u => u.Faction == faction).OrderBy(o => UnityEngine.Random.value).First();
-        _NPCcopy.Remove(selectedUnit); // remove the selected unit from the copy
-        return selectedUnit.UnitPrefab;
+        return (T)_units.Where(u => u.Faction == faction).OrderBy(o => UnityEngine.Random.value).First().UnitPrefab;
     }
 }

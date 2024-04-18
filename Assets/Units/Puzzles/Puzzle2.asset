@@ -15,4 +15,4 @@ MonoBehaviour:
   Faction: 1
   role: 1
   key: 1
-  UnitPrefab: {fileID: -4433880968534771878, guid: c00aeb03d150595438b8591a0301599b, type: 3}
+  UnitPrefab: {fileID: 6137248987334553028, guid: ec755d34334b7d04a9000b86e1c49d39, type: 3}
