@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class Target : MonoBehaviour
 {
-    public Player m_player;
+    public Hunter m_player;
     public enum eState : int
     {
         kIdle,
@@ -42,7 +42,7 @@ public class Target : MonoBehaviour
     {
         // Setup the initial state and get the player GO.
         m_nState = eState.kIdle;
-        m_player = GameObject.FindObjectOfType(typeof(Player)) as Player;
+        m_player = GameObject.FindObjectOfType(typeof(Hunter)) as Hunter;
     }
 
     void Update()
@@ -128,7 +128,7 @@ public class Target : MonoBehaviour
         if (collision.gameObject == GameObject.Find("Player"))
         {
             // If the player is diving, it's a catch!
-            if (m_player.IsDiving())
+            if (m_player.Diving())
             {
                 m_nState = eState.kCaught;
                 transform.parent = m_player.transform;
