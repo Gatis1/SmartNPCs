@@ -6,7 +6,11 @@ using UnityEngine;
 
 public class Hunter : MonoBehaviour
 {
-    public Target prey;
+    public static float fastSpd = 0.8f;
+    public float slowSpd = fastSpd * 0.66f;
+    public float a_DiveTime = 0.005f;
+    public Prey prey;
+    Vector3 targetPos;
     private Vector3 a_DiveStart;
     private Vector3 a_DiveEnd;
     private float speed;
@@ -32,17 +36,33 @@ public class Hunter : MonoBehaviour
         a_state = Action.MoveSlow;
     }
 
+    IEnumerator UpdateTargetPos()
+    {
+        while (true)
+        {
+            targetPos = prey.transform.position;
+            yield return new WaitForSeconds(0.1f); // update every 0.1 seconds
+        }
+    }
     // Update is called once per frame
     void Update()
     {
-        float distance = Vector3.Distance(transform.position, prey.transform.position);
+        StartCoroutine(UpdateTargetPos());
+        float distance = Vector3.Distance(transform.position, targetPos);
+        if(distance <= 2.0f)
+        {
+            a_state = Action.Diving;
+        }
         switch(a_state)
         {
             case Action.MoveSlow:
             if(distance < 3.0f) 
             {
-                speed = 0.3f;
-                transform.position = Vector3.Lerp(transform.position, prey.transform.position, speed * Time.deltaTime);
+                speed = slowSpd;
+                Vector3 direction = (transform.position - targetPos).normalized;
+                angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+                transform.rotation = Quaternion.Euler(0f, 0f, angle);
+                transform.position = Vector3.MoveTowards(transform.position, targetPos, speed * Time.deltaTime);
             }
             else
             {
@@ -53,14 +73,25 @@ public class Hunter : MonoBehaviour
             case Action.MoveFast:
             if(distance > 3.0f)
             {
-                speed = 0.8f;
-                transform.position = Vector3.Lerp(transform.position, prey.transform.position, speed *  Time.deltaTime);
+                speed = fastSpd;
+                Vector3 direction = (transform.position - targetPos).normalized;
+                angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+                transform.rotation = Quaternion.Euler(0f, 0f, angle);
+                transform.position = Vector3.MoveTowards(transform.position, targetPos, speed *  Time.deltaTime);
             }
             else
             {
                 a_state = Action.MoveSlow;
             }
             break;
+
+            //case Action.Diving:
+            //speed = 0;
+            //a_DiveStart = transform.position;
+            //a_DiveEnd = a_DiveStart - (transform.right * a_DiveTime);
+//
+            //transform.position = Vector3.MoveTowards(transform.position, a_DiveEnd, Time.deltaTime);;
+            //break;
         }
     }
 }

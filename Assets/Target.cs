@@ -1,12 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class Target : MonoBehaviour
 {
-    public Hunter m_player;
+    public Player m_player;
+    public SpriteRenderer fish;
+    public Sprite Bones;
     public enum eState : int
     {
         kIdle,
@@ -16,124 +17,143 @@ public class Target : MonoBehaviour
         kNumStates
     }
 
-    private Color[] stateColors = new Color[(int)eState.kNumStates]
-   {
-        new Color(255, 0,   0),
-        new Color(0,   255, 0),
-        new Color(0,   0,   255),
-        new Color(255, 255, 255)
-   };
+    //     private Color[] stateColors = new Color[(int)eState.kNumStates]
+    //    {
+    //             new Color(255, 0,   0),
+    //             new Color(0,   255, 0),
+    //             new Color(0,   0,   255),
+    //             new Color(255, 255, 255)
+    //    };
 
     // External tunables.
-    public float m_fHopTime = 0.2f;
-    public float m_fHopSpeed = 6.0f;
-    public float m_fScaredDistance = 3.0f;
-    public int m_nMaxMoveAttempts = 50;
+    static public float m_fHopTime = 0.2f;
+    static public float m_fHopSpeed = 6.0f;
+    static public float m_fScaredDistance = 3.0f;
+    static public int m_nMaxMoveAttempts = 50;
+    static public int moveCount;
 
     // Internal variables.
     public eState m_nState;
     public float m_fHopStart;
     public Vector3 m_vHopStartPos;
     public Vector3 m_vHopEndPos;
+    public Vector3 m_vHopDirection = new Vector3(0.0f, 0.0f, 0.0f);
 
-    public Vector3 direction;
 
     void Start()
     {
         // Setup the initial state and get the player GO.
         m_nState = eState.kIdle;
-        m_player = GameObject.FindObjectOfType(typeof(Hunter)) as Hunter;
+        m_player = GameObject.FindObjectOfType(typeof(Player)) as Player;
+        fish = gameObject.GetComponent<SpriteRenderer>();
+        moveCount = 0;
+    }
+
+    public bool caught()
+    {
+        return (m_nState == eState.kCaught);
     }
 
     void Update()
     {
-        float distance = Vector3.Distance(transform.position, m_player.transform.position);
 
         switch (m_nState)
         {
+            // kIdle - 
             case eState.kIdle:
-                //Check if the player reaches a certian distance between the target.
-                if (distance < 3.0f) { m_nState = eState.kHopStart; }
+                // Calculate direction and distance to the player, and store it in a float
+                Vector3 directionToTarget = m_player.transform.position - transform.position;
+                float distanceToTarget = directionToTarget.magnitude;
+
+                // Change state to kHop when player is close
+                if (distanceToTarget < m_fScaredDistance)
+                {
+                    m_nState = eState.kHop;
+                }
                 break;
 
-            //A case that calculates the random position for the target to hop to.
+            // kHopStart - after rabbit hops 50 times, reset counter and change rabbit's state back to idle for 6.0f
             case eState.kHopStart:
-                 int moves = m_nMaxMoveAttempts;
-                //while loop to check if it takes a certian amount of attempts to find a random direction to hop to.
-                while (moves > 0)
-                {
-                    //generate the random direction/position based on a random range from -2.5 to 2.5 for the x and y positions.
-                    direction = new Vector3(Random.Range(-2.5f, 2.5f), Random.Range(-2.5f, 2.5f), 0);
-
-                    //start hop position is the current position of the target.
-                    m_vHopStartPos = transform.position;
-
-                    //end position is calculated based on start pos, random direction, hope speed, and hop time. 
-                    m_vHopEndPos = m_vHopStartPos + (direction * m_fHopSpeed * m_fHopTime);
-
-                    //sets end pos to world point based on screen point. Used for the boundries of the screen.
-                    m_vHopEndPos = Camera.main.WorldToScreenPoint(m_vHopEndPos);
-                    
-                    // Calculate the direction towards the player
-                    Vector3 directionToPlayer = (m_player.transform.position - transform.position).normalized;
-
-                    //check to make sure the end position is within the bounds of the screen and not towards the player's direction.
-                    if (Vector3.Dot(direction, directionToPlayer) < 0 && (m_vHopEndPos.x > 0) && (m_vHopEndPos.x < Screen.width) && (m_vHopEndPos.y > 0) && (m_vHopEndPos.y < Screen.height))
-                    {
-                        //set end pos back to world point and change to hop stat.
-                        m_vHopEndPos = Camera.main.ScreenToWorldPoint(m_vHopEndPos);
-                        if(Vector3.Distance(m_vHopEndPos, m_player.transform.position) > m_fScaredDistance) { m_nState = eState.kHop; }
-                        break;
-                    }
-                    --moves;
-                }
-
-                if (moves <= 0 && distance < 3.0f)
+                moveCount = 0;
+                float hopStartTimer = 0.0f;
+                hopStartTimer += Time.time;
+                if (hopStartTimer >= 6.0f)
                 {
                     m_nState = eState.kIdle;
                 }
                 break;
 
+            // kHop 
             case eState.kHop:
-                // Move the character towards the end position in a smooth motion.
-                transform.position = Vector3.MoveTowards(transform.position, m_vHopEndPos, m_fHopSpeed * Time.deltaTime);
+                // Unit vector pointing from target towards player
+                Vector3 awayFromPlayerDirection = (transform.position - m_player.transform.position).normalized;
 
-                //get the angle for the target to turn to when moving.
-                float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+                // Randomly set the direction of hop and set hop start timer 
+                if (m_vHopDirection == Vector3.zero)
+                {
+                    m_vHopDirection = Quaternion.Euler(0, 0, Random.Range(0f, 120.0f)) * awayFromPlayerDirection;
+                    m_fHopStart = Time.time;
+                }
 
-                //ensures the target is facing towards the direction it is going .
-                angle -= 90;
+                // Calculate amount of time since rabbit started hopping
+                float elapsedTime = Time.time - m_fHopStart;
 
-                //rotates the target towards the direction it moves to.
-                transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+                if (elapsedTime < m_fHopTime)
+                {
+                    // Rotate and move rabbit's direction of hop
+                    float angle = Mathf.Atan2(m_vHopDirection.y, m_vHopDirection.x) * Mathf.Rad2Deg;
+                    transform.rotation = Quaternion.Euler(0, 0, angle);
+                    transform.position += m_vHopDirection * Time.deltaTime * m_fHopSpeed;
 
-                //if the target reaches its end pos switch back to idle and wait for player.
-                if (transform.position == m_vHopEndPos){ m_nState = eState.kIdle; }
+                    // Clamps rabbit's postion so it does not leave the screen
+                    Vector3 clampedPosition = transform.position;
+                    clampedPosition.x = Mathf.Clamp(clampedPosition.x, Camera.main.ScreenToWorldPoint(Vector3.zero).x, Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, 0, 0)).x);
+                    clampedPosition.y = Mathf.Clamp(clampedPosition.y, Camera.main.ScreenToWorldPoint(Vector3.zero).y, Camera.main.ScreenToWorldPoint(new Vector3(0, Screen.height, 0)).y);
+                    transform.position = clampedPosition;
+                }
+                else
+                {
+                    // Return to idle after a hop -- this ensures the rabbit doesn't do one long hop
+                    m_nState = eState.kIdle;
+                    // Reset the movement direction and hop start time for the next hop away from player
+                    m_vHopDirection = Vector3.zero;
+                    m_fHopStart = 0f;
+                    // Keep track of number of rabbit hops to return it to hopStart state if the rabbit hops 50 times
+                    if (m_fHopStart == 0f && moveCount <= m_nMaxMoveAttempts)
+                    {
+                        moveCount++;
+                        Debug.Log($"move count is {moveCount}");
+                    }
+                    else
+                    {
+                        Vector3 offScreen = transform.position * 5;
+                        transform.position = Vector3.MoveTowards(transform.position, offScreen, Time.deltaTime);
+                        gameObject.SetActive(false);
+                        Debug.Log("The Prey escaped!!!");
+                    }
+                }
                 break;
 
-            //Did not know what I needed to do for this state.
+            // kCaught
             case eState.kCaught:
                 break;
 
-            //Did not know what I needed to do for this state.
-            case eState.kNumStates:
-                break;
+
         }
-        GetComponent<Renderer>().material.color = stateColors[(int)m_nState];
+        // The color will be changed based off of the current state becuase after each case, the eState will be set to a given state, 
+        // GetComponent<Renderer>().material.color = stateColors[(int)m_nState];
+
     }
 
     void OnTriggerStay2D(Collider2D collision)
     {
         // Check if this is the player (in this situation it should be!)
-        if (collision.gameObject == GameObject.Find("Player"))
+        if (collision.gameObject == GameObject.Find("Hunter"))
         {
-            // If the player is diving, it's a catch!
-            if (m_player.Diving())
-            {
-                m_nState = eState.kCaught;
-                transform.parent = m_player.transform;
-                transform.localPosition = new Vector3(0.0f, -0.5f, 0.0f);
-            }
+            m_nState = eState.kCaught;
+            transform.parent = m_player.transform;
+            transform.localPosition = new Vector3(0.5f, 0.0f, 0.0f);
+            fish.sprite = Bones;
         }
     }
 }

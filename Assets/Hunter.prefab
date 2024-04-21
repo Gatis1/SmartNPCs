@@ -10,8 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 3769812355111670786}
   - component: {fileID: 4681222323679239980}
-  - component: {fileID: -8002627068802591030}
   - component: {fileID: 1422468921638394966}
+  - component: {fileID: -8002627068802591030}
+  - component: {fileID: 5908200959120189808}
+  - component: {fileID: -1075071197429202032}
   m_Layer: 0
   m_Name: Hunter
   m_TagString: Untagged
@@ -26,14 +28,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3282769880763820124}
-  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: 4, y: 0, z: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &4681222323679239980
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -86,19 +88,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &-8002627068802591030
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3282769880763820124}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bb7b829ee3ba917458e6cf8f1d0d4a09, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  prey: {fileID: 6773308000471583838, guid: 8c61b50bea7579148a7fbb52973a4dd4, type: 3}
 --- !u!60 &1422468921638394966
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -106,7 +95,7 @@ PolygonCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3282769880763820124}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1
@@ -134,3 +123,74 @@ PolygonCollider2D:
       - {x: 0.22999999, y: -0.25}
       - {x: 0.31, y: -0.16}
       - {x: 0.31, y: 0.099999994}
+--- !u!114 &-8002627068802591030
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3282769880763820124}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb7b829ee3ba917458e6cf8f1d0d4a09, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  slowSpd: 0.52800006
+  a_DiveTime: 0.005
+  prey: {fileID: 2873381921791457501, guid: 8c61b50bea7579148a7fbb52973a4dd4, type: 3}
+--- !u!114 &5908200959120189808
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3282769880763820124}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a3e88283053c35498306ce421311774, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: -2298384545715734317, guid: 8c61b50bea7579148a7fbb52973a4dd4, type: 3}
+  m_fIncSpeed: 0.00002
+  m_fMagnitudeFast: 0.6
+  m_fMagnitudeSlow: 0.06
+  m_fFastRotateSpeed: 0.2
+  m_fFastRotateMax: 10
+  m_fDiveTime: 0.3
+  m_fDiveRecoveryTime: 3
+  m_fDiveDistance: 3
+  m_fRecoveryTimer: 0
+  m_vDiveStartPos: {x: 0, y: 0, z: 0}
+  m_vDiveEndPos: {x: 0, y: 0, z: 0}
+  m_fAngle: 0
+  m_fSpeed: 0
+  m_fTargetSpeed: 0
+  m_fTargetAngle: 0
+  m_nState: 0
+  m_fDiveStartTime: 0
+--- !u!61 &-1075071197429202032
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3282769880763820124}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.64, y: 0.64}
+    newSize: {x: 0.64, y: 0.64}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.64, y: 0.64}
+  m_EdgeRadius: 0
