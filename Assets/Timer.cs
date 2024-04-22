@@ -7,7 +7,7 @@ public class Timer : MonoBehaviour
 {
     [SerializeField] Text Count;
     [SerializeField] Target target;
-    private bool TimeOn;
+    public bool TimeOn;
 
     public float CurTime { get; set; }
     // Start is called before the first frame update
@@ -20,12 +20,13 @@ public class Timer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(TimeOn)
+        if(TimeOn == true)
         {
-            CurTime += 1 * Time.deltaTime;
+            CurTime += Time.deltaTime;
             Count.text = CurTime.ToString();
 
-            if(target.caught() == true){ TimeOn = false; }    
+            if(target.caught() == true){ TimeOn = false; }
+            else if(target.escape() == true){ TimeOn = false;}  
         }
     }
 }

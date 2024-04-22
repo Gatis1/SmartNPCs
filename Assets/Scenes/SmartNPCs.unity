@@ -217,7 +217,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Count: {fileID: 52229405}
-  target: {fileID: -2298384545715734317, guid: 8c61b50bea7579148a7fbb52973a4dd4, type: 3}
+  target: {fileID: 717935782}
+  TimeOn: 0
 --- !u!1 &592040505
 GameObject:
   m_ObjectHideFlags: 0
@@ -294,6 +295,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 592040505}
   m_CullTransparentMesh: 1
+--- !u!114 &717935782 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: -2298384545715734317, guid: 8c61b50bea7579148a7fbb52973a4dd4, type: 3}
+  m_PrefabInstance: {fileID: 5560369761351329543}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3f4132b6589766418abc0eae9f8f49c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &725134689
 GameObject:
   m_ObjectHideFlags: 0

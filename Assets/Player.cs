@@ -128,17 +128,6 @@ public class Player : MonoBehaviour
             {
                 m_fTargetSpeed = m_fSlowSpeed;
             }
-            //else if (distanceToTarget <= 2.0f)
-            //{
-            //    // Start the dive operation
-            //    m_nState = eState.kDiving;
-            //    m_fSpeed = 0.0f;
-
-            //    // Store starting parameters.
-            //    m_vDiveStartPos = transform.position;
-            //    m_vDiveEndPos = m_vDiveStartPos + (transform.right * m_fDiveDistance);
-            //    m_fDiveStartTime = Time.time;
-            //}
             else
             {
                 m_fTargetSpeed = 0.0f;

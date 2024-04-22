@@ -14,7 +14,7 @@ public class Target : MonoBehaviour
         kHopStart,
         kHop,
         kCaught,
-        kNumStates
+        Escape
     }
 
     //     private Color[] stateColors = new Color[(int)eState.kNumStates]
@@ -52,6 +52,11 @@ public class Target : MonoBehaviour
     public bool caught()
     {
         return (m_nState == eState.kCaught);
+    }
+
+    public bool escape()
+    {
+        return(m_nState == eState.Escape);
     }
 
     void Update()
@@ -126,8 +131,7 @@ public class Target : MonoBehaviour
                     }
                     else
                     {
-                        Vector3 offScreen = transform.position * 5;
-                        transform.position = Vector3.MoveTowards(transform.position, offScreen, Time.deltaTime);
+                        m_nState = eState.Escape;
                         gameObject.SetActive(false);
                         Debug.Log("The Prey escaped!!!");
                     }
@@ -137,6 +141,9 @@ public class Target : MonoBehaviour
             // kCaught
             case eState.kCaught:
                 break;
+
+            case eState.Escape:
+            break;
 
 
         }
