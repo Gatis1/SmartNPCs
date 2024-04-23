@@ -573,8 +573,16 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2873381921791457501, guid: 8c61b50bea7579148a7fbb52973a4dd4, type: 3}
     - target: {fileID: -8002627068802591030, guid: 885631ccc1d1dec4c9a858d5f1b072f2, type: 3}
-      propertyPath: m_Enabled
+      propertyPath: mvSpd
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8002627068802591030, guid: 885631ccc1d1dec4c9a858d5f1b072f2, type: 3}
+      propertyPath: _target
+      value: 
+      objectReference: {fileID: 2873381921791457501, guid: 8c61b50bea7579148a7fbb52973a4dd4, type: 3}
+    - target: {fileID: -8002627068802591030, guid: 885631ccc1d1dec4c9a858d5f1b072f2, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -8002627068802591030, guid: 885631ccc1d1dec4c9a858d5f1b072f2, type: 3}
       propertyPath: a_DiveTime
@@ -582,7 +590,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1422468921638394966, guid: 885631ccc1d1dec4c9a858d5f1b072f2, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1422468921638394966, guid: 885631ccc1d1dec4c9a858d5f1b072f2, type: 3}
       propertyPath: m_IsTrigger
@@ -663,7 +671,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3931071306655756778, guid: 8c61b50bea7579148a7fbb52973a4dd4, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6854605446288053736, guid: 8c61b50bea7579148a7fbb52973a4dd4, type: 3}
       propertyPath: m_Sprite

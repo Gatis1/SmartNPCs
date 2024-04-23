@@ -1,97 +1,88 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.Burst.CompilerServices;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class Hunter : MonoBehaviour
 {
-    public static float fastSpd = 0.8f;
-    public float slowSpd = fastSpd * 0.66f;
-    public float a_DiveTime = 0.005f;
-    public Prey prey;
-    Vector3 targetPos;
-    private Vector3 a_DiveStart;
-    private Vector3 a_DiveEnd;
-    private float speed;
-    private float angle;
-    private Action a_state;
-
-    public enum Action : int
+    [SerializeField]private Prey _target;
+    [SerializeField]private float mvSpd;
+    [SerializeField]private float recoverTime = 2.0f;
+    private Vector3 _diveStart;
+    private Vector3 _diveEnd;
+    public state h_state;
+    public enum state
     {
-        MoveSlow,
-        MoveFast,
-        Diving,
-        Recovering
+        moveSlow,
+        moveFast,
+        Dive,
+        Recover,
+        Stop
     }
 
-    public bool Diving()
+    private void Start() 
     {
-        return (a_state == Action.Diving);
+        h_state = state.moveSlow;
+        _target = GameObject.FindObjectOfType(typeof(Prey)) as Prey;
     }
 
-    private void Start() {
-        speed = 0;
-        angle = 0;
-        a_state = Action.MoveSlow;
-    }
-
-    IEnumerator UpdateTargetPos()
+    private void Update() 
     {
-        while (true)
+        float distance = Vector3.Distance(transform.position, _target.transform.position);
+        if(distance > 1.5 && distance < 2.0 && h_state != state.Dive){h_state = state.Dive;}
+        if(_target.caught() == true){ h_state = state.Stop; }
+        switch(h_state)
         {
-            targetPos = prey.transform.position;
-            yield return new WaitForSeconds(0.1f); // update every 0.1 seconds
-        }
-    }
-    // Update is called once per frame
-    void Update()
-    {
-        StartCoroutine(UpdateTargetPos());
-        float distance = Vector3.Distance(transform.position, targetPos);
-        if(distance <= 2.0f)
-        {
-            a_state = Action.Diving;
-        }
-        switch(a_state)
-        {
-            case Action.MoveSlow:
-            if(distance < 3.0f) 
-            {
-                speed = slowSpd;
-                Vector3 direction = (transform.position - targetPos).normalized;
-                angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-                transform.rotation = Quaternion.Euler(0f, 0f, angle);
-                transform.position = Vector3.MoveTowards(transform.position, targetPos, speed * Time.deltaTime);
-            }
-            else
-            {
-                a_state = Action.MoveFast;
-            }
+            case state.moveSlow:
+            if(distance <= 2.0f){mvSpd = 2.0f;}
+            else{h_state = state.moveFast;}
+            Chase(mvSpd);
             break;
 
-            case Action.MoveFast:
-            if(distance > 3.0f)
-            {
-                speed = fastSpd;
-                Vector3 direction = (transform.position - targetPos).normalized;
-                angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-                transform.rotation = Quaternion.Euler(0f, 0f, angle);
-                transform.position = Vector3.MoveTowards(transform.position, targetPos, speed *  Time.deltaTime);
-            }
-            else
-            {
-                a_state = Action.MoveSlow;
-            }
+            case state.moveFast:
+            mvSpd = 5.0f;
+            Chase(mvSpd);
             break;
 
-            //case Action.Diving:
-            //speed = 0;
-            //a_DiveStart = transform.position;
-            //a_DiveEnd = a_DiveStart - (transform.right * a_DiveTime);
-//
-            //transform.position = Vector3.MoveTowards(transform.position, a_DiveEnd, Time.deltaTime);;
-            //break;
+            case state.Dive:
+            Dive();
+            break;
+
+            case state.Recover:
+            StartCoroutine(Recovery());
+            break;
+
+            case state.Stop:
+            transform.position = Vector2.zero;
+            break;
         }
+    }
+
+    private void Chase(float mvSpd)
+    {
+        Vector2 direction = (_target.transform.position - transform.position).normalized;
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+        transform.rotation = Quaternion.Euler(0, 0, angle);
+        transform.position = Vector3.MoveTowards(transform.position, _target.transform.position, mvSpd * Time.deltaTime);
+    }
+
+    private void Dive()
+    {
+        _diveStart = transform.position;
+        Vector3 direction = (_target.transform.position - _diveStart).normalized;
+        _diveEnd = _diveStart + direction;
+        transform.position = Vector3.MoveTowards(transform.position, _diveEnd, 0.3f);
+        if(transform.position == _diveEnd){h_state = state.Recover;}
+    }
+
+    IEnumerator Recovery()
+    {
+        float timer = recoverTime;
+
+        while(timer > 0)
+        {
+            timer -= Time.deltaTime;
+            yield return null;
+        }
+        h_state = state.moveSlow;
     }
 }
