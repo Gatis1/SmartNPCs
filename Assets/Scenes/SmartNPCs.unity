@@ -217,7 +217,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Count: {fileID: 52229405}
-  target: {fileID: 717935782}
+  target: {fileID: 1034221541}
   TimeOn: 0
 --- !u!1 &592040505
 GameObject:
@@ -295,17 +295,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 592040505}
   m_CullTransparentMesh: 1
---- !u!114 &717935782 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: -2298384545715734317, guid: 8c61b50bea7579148a7fbb52973a4dd4, type: 3}
-  m_PrefabInstance: {fileID: 5560369761351329543}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a3f4132b6589766418abc0eae9f8f49c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &725134689
 GameObject:
   m_ObjectHideFlags: 0
@@ -374,6 +363,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1034221541 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2873381921791457501, guid: 8c61b50bea7579148a7fbb52973a4dd4, type: 3}
+  m_PrefabInstance: {fileID: 5560369761351329543}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0d989eacf5b3744ca7b944265c1d543, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1245026979
 GameObject:
   m_ObjectHideFlags: 0
@@ -657,10 +657,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: -2298384545715734317, guid: 8c61b50bea7579148a7fbb52973a4dd4, type: 3}
-      propertyPath: Bones
-      value: 
-      objectReference: {fileID: 21300000, guid: 539b0ff1a82bd554a813fa8a35b7c470, type: 3}
     - target: {fileID: 342583895504906800, guid: 8c61b50bea7579148a7fbb52973a4dd4, type: 3}
       propertyPath: m_Name
       value: Prey
@@ -668,6 +664,10 @@ PrefabInstance:
     - target: {fileID: 342583895504906800, guid: 8c61b50bea7579148a7fbb52973a4dd4, type: 3}
       propertyPath: m_Layer
       value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 2873381921791457501, guid: 8c61b50bea7579148a7fbb52973a4dd4, type: 3}
+      propertyPath: moveInterval
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3931071306655756778, guid: 8c61b50bea7579148a7fbb52973a4dd4, type: 3}
       propertyPath: m_Enabled

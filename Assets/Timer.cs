@@ -5,21 +5,22 @@ using UnityEngine.UI;
 
 public class Timer : MonoBehaviour
 {
+    //A timer script used to count the time until the prey escapes or the hunter catches it.
     [SerializeField] Text Count;
-    [SerializeField] Target target;
+    //Needs the Prey prefab in the inspector to call its caught and escape and functions for testing.
+    [SerializeField] Prey target;
     public bool TimeOn;
-
     public float CurTime { get; set; }
-    // Start is called before the first frame update
     void Start()
     {
+        //boolean value to allow the timer to keep counting or stop.
         TimeOn = true;
         CurTime = 0.0f;
     }
 
-    // Update is called once per frame
     void Update()
     {
+        //Time keeps counting until either if conditions are met.
         if(TimeOn == true)
         {
             CurTime += Time.deltaTime;

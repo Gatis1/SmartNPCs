@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 3931071306655756778}
   - component: {fileID: 3625703768067040566}
   - component: {fileID: 2873381921791457501}
-  - component: {fileID: -2298384545715734317}
   m_Layer: 0
   m_Name: Prey
   m_TagString: Untagged
@@ -161,25 +160,6 @@ MonoBehaviour:
   Bones: {fileID: 21300000, guid: fc24489def56cc542a29bc2d2c3f3c98, type: 3}
   p_state: 0
   mvSpd: 6
-  moveCount: 50
+  moveAttempts: 50
+  moveRange: 120
   direction: {x: 0, y: 0, z: 0}
---- !u!114 &-2298384545715734317
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 342583895504906800}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a3f4132b6589766418abc0eae9f8f49c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_player: {fileID: 5908200959120189808, guid: 885631ccc1d1dec4c9a858d5f1b072f2, type: 3}
-  fish: {fileID: 0}
-  Bones: {fileID: 21300000, guid: 161402a30e94fc54cbb6f0a10782e308, type: 3}
-  m_nState: 0
-  m_fHopStart: 0
-  m_vHopStartPos: {x: 0, y: 0, z: 0}
-  m_vHopEndPos: {x: 0, y: 0, z: 0}
-  m_vHopDirection: {x: 0, y: 0, z: 0}

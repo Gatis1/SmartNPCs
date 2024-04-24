@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 4681222323679239980}
   - component: {fileID: 1422468921638394966}
   - component: {fileID: -8002627068802591030}
-  - component: {fileID: 5908200959120189808}
   m_Layer: 0
   m_Name: Hunter
   m_TagString: Untagged
@@ -135,35 +134,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _target: {fileID: 2873381921791457501, guid: 8c61b50bea7579148a7fbb52973a4dd4, type: 3}
-  mvSpd: 1
-  state: 0
---- !u!114 &5908200959120189808
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3282769880763820124}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a3e88283053c35498306ce421311774, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  target: {fileID: -2298384545715734317, guid: 8c61b50bea7579148a7fbb52973a4dd4, type: 3}
-  m_fIncSpeed: 0.00002
-  m_fMagnitudeFast: 0.6
-  m_fMagnitudeSlow: 0.06
-  m_fFastRotateSpeed: 0.2
-  m_fFastRotateMax: 10
-  m_fDiveTime: 0.3
-  m_fDiveRecoveryTime: 3
-  m_fDiveDistance: 3
-  m_fRecoveryTimer: 0
-  m_vDiveStartPos: {x: 0, y: 0, z: 0}
-  m_vDiveEndPos: {x: 0, y: 0, z: 0}
-  m_fAngle: 0
-  m_fSpeed: 0
-  m_fTargetSpeed: 0
-  m_fTargetAngle: 0
-  m_nState: 0
-  m_fDiveStartTime: 0
+  recoverTime: 2
+  h_state: 0
