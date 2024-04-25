@@ -20,7 +20,7 @@ public class Prey : MonoBehaviour
     private int moveCount;
     [SerializeField]private int moveAttempts = 50;
     [SerializeField]private float moveRange = 90.0f;
-    public Vector3 direction;
+    private float currentAngleVelocity;
 
     //The Prey states
     public enum state
@@ -79,7 +79,9 @@ public class Prey : MonoBehaviour
                 {
                     // Rotate and move prey's direction of movement
                     float angle = Mathf.Atan2(_runTo.y, _runTo.x) * Mathf.Rad2Deg;
-                    transform.rotation = Quaternion.Euler(0, 0, angle);
+                    //smoothes the prey's angle direction.
+                    float smoothAngle = Mathf.SmoothDampAngle(transform.eulerAngles.z, angle, ref currentAngleVelocity, 0.1f);
+                    transform.rotation = Quaternion.Euler(0, 0, smoothAngle);
                     transform.position += _runTo * Time.deltaTime * mvSpd;
 
                     // Clamps prey's postion so it does not leave the screen
